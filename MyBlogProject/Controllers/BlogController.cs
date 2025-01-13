@@ -15,6 +15,8 @@ namespace MyBlogProject.Controllers
 
         public IActionResult ReadAllBlogs(int id)
         {
+            var writerID = blogManager.GetWriterWithBlog(id);
+            ViewBag.writerId = writerID;
             ViewBag.i = id;
             var values = blogManager.GetBlogById(id);
             return View(values);
