@@ -3,6 +3,7 @@ using BusinessLayer.ValidationRules;
 using DataAccessLayer.Concrete.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MyBlogProject.Controllers
@@ -11,6 +12,7 @@ namespace MyBlogProject.Controllers
     {
         WriterManager writerManager = new WriterManager(new EfWriterRepository());
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Index()
         {
