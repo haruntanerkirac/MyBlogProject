@@ -30,10 +30,10 @@ namespace MyBlogProject.Controllers
             return PartialView();
         }
 
-        public PartialViewResult CommentListByBlog(int id)
-        {
-            var values = commentManager.GetAllComments(id);
-            return PartialView(values);
-        }
+        //public PartialViewResult CommentListByBlog(int id)
+        //{
+        //    var values = commentManager.GetAllComments(id);
+        //    return PartialView(values);
+        //}
     }
 }
