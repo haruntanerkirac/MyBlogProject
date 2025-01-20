@@ -9,7 +9,7 @@ namespace MyBlogProject.Controllers
         CategoryManager categoryManager = new CategoryManager(new EfCategoryRepository()); 
         public IActionResult Index()
         {
-            var values = categoryManager.GetAllCategories();
+            var values = categoryManager.GetAll();
             return View(values);
         }
     }
