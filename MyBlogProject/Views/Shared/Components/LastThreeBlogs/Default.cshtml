@@ -1,0 +1,25 @@
+﻿@model List<EntityLayer.Concrete.Blog>
+
+@foreach (var item in Model)
+{
+	<div class="blog-grids row mb-3">
+
+		<div class="col-md-5 blog-grid-left">
+			<a href="/Blog/ReadAllBlogs/@item.BlogID/">
+				<img src="~/BlogTema/images/4.jpg" class="card-img-top img-fluid" alt="">
+			</a>
+		</div>
+		<div class="col-md-7 blog-grid-right">
+
+			<h5>
+				<a href="/Blog/ReadAllBlogs/@item.BlogID/">@item.BlogTitle</a>
+			</h5>
+			<div class="sub-meta">
+				<span>
+					<i class="far fa-clock"></i> @item.BlogCreatedDate.ToShortDateString()
+				</span>
+			</div>
+		</div>
+
+	</div>
+}
