@@ -49,7 +49,7 @@ namespace BusinessLayer.Concrete
 
         public void TAdd(Blog entity)
         {
-            throw new NotImplementedException();
+            _blogDal.Insert(entity);
         }
 
         public void TDelete(Blog entity)
