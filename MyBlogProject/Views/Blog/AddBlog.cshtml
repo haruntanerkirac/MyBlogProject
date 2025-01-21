@@ -24,7 +24,7 @@
 	@Html.ValidationMessageFor(x => x.BlogImage, "", new { @class = "text-danger" })
 	<br />
 	@Html.Label("KATEGORİ")
-	@Html.TextBoxFor(x => x.CategoryID, new { @class = "form-control" })
+	@Html.DropDownListFor(x => x.CategoryID, (List<SelectListItem>)ViewBag.CategoryValues, new { @class = "form-control" })
 	<br />
 	<button class="btn btn-primary submit mb-4">EKLE</button>
 }

@@ -23,12 +23,19 @@
 		@foreach (var item in Model)
 		{
 			<tr>
-				<td>@item.BlogID</td>
+				<th>@item.BlogID</th>
 				<td>@item.BlogTitle</td>
-				<td>@item.BlogCreatedDate</td>
-				<td>@item.CategoryID</td>
-				<td>@item.BlogStatus</td>
-				<td><a href="#" class="btn btn-danger">SİL</a></td>
+				<td>@item.BlogCreatedDate.ToShortDateString()</td>
+				<td><span class="badge badge-primary">@item.Category.CategoryName</span></td>
+				@if (item.BlogStatus == true)
+				{
+					<td>Aktif</td>
+				}
+				else
+				{
+					<td>Pasif</td>
+				}
+				<td><a href="/Blog/DeleteBlog/@item.BlogID" onclick="return confirm('Silmek istediğine emin misin?');" class="btn btn-danger">SİL</a></td>
 				<td><a href="#" class="btn btn-warning">GÜNCELLE</a></td>
 			</tr>
 		}

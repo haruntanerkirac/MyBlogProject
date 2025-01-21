@@ -22,7 +22,7 @@ namespace BusinessLayer.Concrete
             return _categoryDal.GetAll();
         }
 
-        public Category GetById(int id)
+        public Category TGetById(int id)
         {
             return _categoryDal.GetById(id);
         }

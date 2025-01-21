@@ -5,6 +5,7 @@ using EntityLayer.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MyBlogProject.Controllers
 {
@@ -29,13 +30,21 @@ namespace MyBlogProject.Controllers
 
         public IActionResult BlogListByWriter()
         {
-            var values = blogManager.GetBlogListWithWriter(1);
+            var values = blogManager.GetListWithCategoryByWriter(1);
             return View(values);
         }
 
         [HttpGet]
         public IActionResult AddBlog()
         {
+            CategoryManager categoryManager = new CategoryManager(new EfCategoryRepository());
+            List<SelectListItem> categoryValues = (from x in categoryManager.GetAll()
+                                                   select new SelectListItem
+                                                   {
+                                                       Text = x.CategoryName,
+                                                       Value = x.CategoryID.ToString()
+                                                   }).ToList();
+            ViewBag.CategoryValues = categoryValues;
             return View();
         }
 
@@ -50,7 +59,7 @@ namespace MyBlogProject.Controllers
                 blog.BlogCreatedDate = DateTime.Parse(DateTime.Now.ToShortDateString());
                 blog.WriterID = 1;
                 blogManager.TAdd(blog);
-                return RedirectToAction("BlogListByWriter","Blog");
+                return RedirectToAction("BlogListByWriter", "Blog");
             }
             else
             {
@@ -60,6 +69,13 @@ namespace MyBlogProject.Controllers
                 }
             }
             return View();
+        }
+
+        public IActionResult DeleteBlog(int id)
+        {
+            var blogToDelete = blogManager.TGetById(id);
+            blogManager.TDelete(blogToDelete);
+            return RedirectToAction("BlogListByWriter");
         }
     }
 }
