@@ -28,7 +28,7 @@ namespace MyBlogProject.Controllers
             {
                 writer.WriterStatus = true;
                 writer.WriterAbout = "deneme";
-                writerManager.WriterAdd(writer);
+                writerManager.TAdd(writer);
                 return RedirectToAction("Index", "Blog");
             }
             else {
