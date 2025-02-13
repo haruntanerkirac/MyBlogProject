@@ -5,6 +5,7 @@ using EntityLayer.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyBlogProject.Models;
 using NuGet.Protocol;
 
 namespace MyBlogProject.Controllers
@@ -63,6 +64,37 @@ namespace MyBlogProject.Controllers
                 }
             }
             return View();
+        }
+
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult AddWriter()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult AddWriter(AddProfileImage image)
+        {
+            Writer writer = new Writer();
+            if (image.WriterImage != null)
+            {
+                var extension = Path.GetExtension(image.WriterImage.FileName);
+                var newImageName = Guid.NewGuid() + extension;
+                var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/WriterImageFiles/" + newImageName);
+                var stream = new FileStream(location, FileMode.Create);
+                image.WriterImage.CopyTo(stream);
+                writer.WriterImage = newImageName;
+            }
+            writer.WriterName = image.WriterName;
+            writer.WriterAbout = image.WriterAbout;
+            writer.WriterMail = image.WriterMail;
+            writer.WriterPassword = image.WriterPassword;
+            writer.WriterStatus = true;
+            writerManager.TAdd(writer);
+            return RedirectToAction("Index", "Dashboard");
         }
     }
 }
