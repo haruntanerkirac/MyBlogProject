@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.Concrete.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
@@ -13,39 +14,42 @@ namespace MyBlogProject.Controllers
     public class WriterController : Controller
     {
         WriterManager writerManager = new WriterManager(new EfWriterRepository());
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult Index()
         {
+            Context context = new Context();
+            var userMail = User.Identity.Name;
+            ViewBag.UserMail = userMail;
+            var writerName = context.Writers.Where(x => x.WriterMail == userMail).Select(y => y.WriterName).FirstOrDefault();
+            ViewBag.WriterName = writerName;
             return View();
         }
 
-        [AllowAnonymous]
         public IActionResult Test()
         {
             return View();
         }
 
-        [AllowAnonymous]
         public PartialViewResult WriterNavbarPartial()
         {
             return PartialView();
         }
 
-        [AllowAnonymous]
         public PartialViewResult WriterFooterPartial()
         {
             return PartialView();
         }
 
-        [AllowAnonymous]
         [HttpGet]
         public IActionResult WriterEditProfile()
         {
-            var writerValues = writerManager.TGetById(1);
+            Context context = new Context();
+            var userMail = User.Identity.Name;
+            var writerID = context.Writers.Where(x => x.WriterMail == userMail).Select(y => y.WriterID).FirstOrDefault();
+            var writerValues = writerManager.TGetById(writerID);
             return View(writerValues);
         }
 
-        [AllowAnonymous]
         [HttpPost]
         public IActionResult WriterEditProfile(Writer writer)
         {
@@ -66,15 +70,12 @@ namespace MyBlogProject.Controllers
             return View();
         }
 
-
-        [AllowAnonymous]
         [HttpGet]
         public IActionResult AddWriter()
         {
             return View();
         }
 
-        [AllowAnonymous]
         [HttpPost]
         public IActionResult AddWriter(AddProfileImage image)
         {
