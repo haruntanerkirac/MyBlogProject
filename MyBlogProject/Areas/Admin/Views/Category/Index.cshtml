@@ -1,0 +1,31 @@
+﻿@using EntityLayer.Concrete
+@model List<Category>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<h1>KATEGORİ LİSTESİ</h1>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>KATEGORİ ADI</th>
+            <th>PASİF YAP</th>
+            <th>AKTİF YAP</th>
+            <th>DÜZENLE</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+          <tr>
+              <th>@item.CategoryID</th>
+              <td>@item.CategoryName</td>
+              <td><a href="#" class="btn btn-info">Pasif Yap</td>
+              <td><a href="#" class="btn btn-warning">Aktif Yap</td>
+              <td><a href="#" class="btn btn-success">Düzenle</td>
+          </tr>
+        }
+      </tbody>
+</table>

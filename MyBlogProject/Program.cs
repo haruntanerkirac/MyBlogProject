@@ -9,7 +9,7 @@ builder.Services.AddControllersWithViews();
 
 
 builder.Services.AddSession();
-builder.Services.AddMvc(config=>
+builder.Services.AddMvc(config =>
 {
     var policy = new AuthorizationPolicyBuilder()
         .RequireAuthenticatedUser()
@@ -52,6 +52,11 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+
+app.MapControllerRoute(
+            name: "areas",
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+);
 
 app.MapControllerRoute(
     name: "default",
