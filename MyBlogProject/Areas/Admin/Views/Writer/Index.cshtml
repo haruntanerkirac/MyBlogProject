@@ -1,0 +1,84 @@
+﻿@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>YAZAR AJAX İŞLEMLERİ</h1>
+<br />
+<button type="button" id="btngetlist" class="btn btn-outline-primary">YAZAR LİSTESİ</button>
+<button type="button" id="btngetbyid" class="btn btn-outline-success">YAZAR GETİR</button>
+<button type="button" id="btnaddwriter" class="btn btn-outline-info">YAZAR EKLE</button>
+<br />
+<div id="writerlist">
+	
+</div>
+<br />
+<div id="getwriter">
+	
+</div>
+<br />
+<div>
+	<input type="text" id="writerId" placeholder="Yazar ID giriniz." class="form-control"/>
+</div>
+<br />
+<div>
+	<input type="text" class="form-control" id="txtwriterid" placeholder="Yazar ID" />
+	<input type="text" class="form-control" id="txtwritername" placeholder="Yazar Adı" /> 
+</div>
+
+
+@section scripts {
+	<script>
+		$("#btngetlist").click(function(){
+			$.ajax({
+				contentType: "application/json",
+				dataType: "json",
+				type:"Get",
+				url: "/Admin/Writer/WriterList",
+				success: function(func){
+					let writer = jQuery.parseJSON(func);
+					console.log(writer);
+					let tablehtml = "<table class=table table-bordered><tr><th>YAZAR ID</th> <th>YAZAR ADI</th></tr>";
+					$.each(writer,(index,value)=>{
+						tablehtml += `<tr><td>${value.Id}<td>${value.Name}</td></tr>`
+					});
+					tablehtml += "</table>";
+					$("#writerlist").html(tablehtml);
+				}
+			});
+		});
+
+		$("#btngetbyid").click(x=> {
+			let id = $("#writerId").val();
+			$.ajax({
+				contentType:"application/json",
+				dataType:"json",
+				type:"get",
+				url:"/Admin/Writer/GetWriterByID/",
+				data:{writerId:id},
+				success: function(func){
+					let writer = jQuery.parseJSON(func);
+					let getwritervalue = `<table class=table table-bordered><tr><th>YAZAR ID</th><th>YAZAR ADI</th></tr><tr><td>${writer.Id}</td><td>${writer.Name}</td></tr></table>`;
+					$("#getwriter").html(getwritervalue);
+				}
+			});
+		}); 
+
+		$("#btnaddwriter").click(function(){
+			let writer = {
+				Id:$("#txtwriterid").val(),
+				Name:$("#txtwritername").val()
+			};
+
+			$.ajax({
+				type:"post",
+				url:"/Admin/Writer/AddWriter/",
+				data:writer,
+				success: function(func){
+					let result = jQuery.parseJSON(func);
+					alert("Yazar ekleme işlemi başarılı !");
+				}
+			});
+		});
+	</script>
+}
