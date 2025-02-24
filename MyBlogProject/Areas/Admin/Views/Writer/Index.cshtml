@@ -8,22 +8,25 @@
 <button type="button" id="btngetlist" class="btn btn-outline-primary">YAZAR LİSTESİ</button>
 <button type="button" id="btngetbyid" class="btn btn-outline-success">YAZAR GETİR</button>
 <button type="button" id="btnaddwriter" class="btn btn-outline-info">YAZAR EKLE</button>
+<button type="button" id="btndeletewriter" class="btn btn-outline-danger">YAZAR SİL</button>
 <br />
 <div id="writerlist">
-	
 </div>
 <br />
 <div id="getwriter">
-	
 </div>
 <br />
 <div>
-	<input type="text" id="writerId" placeholder="Yazar ID giriniz." class="form-control"/>
+	<input type="text" id="writerId" placeholder="Yazar ID giriniz." class="form-control" />
 </div>
 <br />
 <div>
 	<input type="text" class="form-control" id="txtwriterid" placeholder="Yazar ID" />
-	<input type="text" class="form-control" id="txtwritername" placeholder="Yazar Adı" /> 
+	<input type="text" class="form-control" id="txtwritername" placeholder="Yazar Adı" />
+</div>
+<br />
+<div>
+	<input type="text" class="form-control" id="txtid" placeholder="Silinecek Yazar ID" />
 </div>
 
 
@@ -62,14 +65,13 @@
 					$("#getwriter").html(getwritervalue);
 				}
 			});
-		}); 
+		});
 
 		$("#btnaddwriter").click(function(){
 			let writer = {
 				Id:$("#txtwriterid").val(),
 				Name:$("#txtwritername").val()
 			};
-
 			$.ajax({
 				type:"post",
 				url:"/Admin/Writer/AddWriter/",
@@ -80,5 +82,19 @@
 				}
 			});
 		});
+
+		$("#btndeletewriter").click(x=>{
+			let id = $("#txtid").val();
+			$.ajax({
+				url:"/Admin/Writer/DeleteWriter/"+id,
+				type:"post",
+				dataType:"json",
+				success:function(func){
+					alert("Yazar Silme İşlemi Başarılı Bir Şekilde Gerçekleşti !");
+				}
+			});
+		});
+
+
 	</script>
 }
