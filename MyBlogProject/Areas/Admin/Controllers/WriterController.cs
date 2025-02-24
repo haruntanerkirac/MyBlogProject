@@ -40,6 +40,14 @@ namespace MyBlogProject.Areas.Admin.Controllers
             return Json(writer);
         }
 
+        public IActionResult UpdateWriter(WriterClass writer)
+        {
+            var updatedItem = writers.FirstOrDefault(x => x.Id == writer.Id);
+            updatedItem.Name = writer.Name;
+            var jsonWriter = JsonConvert.SerializeObject(writer);
+            return Json(jsonWriter);
+        }
+
         public static List<WriterClass> writers = new List<WriterClass>
         {
             new WriterClass { Id = 1, Name = "John Doe" },
