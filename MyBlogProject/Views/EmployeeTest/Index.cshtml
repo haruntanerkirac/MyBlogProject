@@ -1,0 +1,30 @@
+﻿@using MyBlogProject.Controllers
+@model List<Class1>
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Index</h1>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Adı Soyadı</th>
+			<th>Sil</th>
+			<th>Düzenle</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>@item.ID</td>
+				<td>@item.Name</td>
+				<td><a href="#" class="btn btn-outline-danger">Sil</a></td>
+				<td><a href="#" class="btn btn-outline-success">Düzenle</a></td>
+			</tr>
+		}
+	</tbody>
+</table>
+<a href="/EmployeeTest/AddEmployee/" class="btn btn-outline-primary">Yeni Çalışan Girişi</a>
