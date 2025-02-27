@@ -1,6 +1,6 @@
 ﻿@model UserSignUpViewModel
 @{
-	Layout = null;
+	Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -32,7 +32,6 @@
 			</div>
 			<h3>Kayıt Ekranı</h3>
 			<p>Yeni bir hesap oluşturun.</p>
-			<p>Create account to see it in action.</p>
 			<form class="m-t" role="form" asp-action="Index">
 				<div class="form-group">
 					<span asp-validation-for="@Model.NameSurname" class="text-danger"></span>

@@ -13,7 +13,9 @@ namespace DataAccessLayer.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+
             optionsBuilder.UseSqlServer("server=DESKTOP-FUF0ENV;database=MyBlogDb;integrated security=true; TrustServerCertificate=True");
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

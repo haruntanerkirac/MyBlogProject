@@ -16,12 +16,14 @@ namespace MyBlogProject.Controllers
         CategoryManager categoryManager = new CategoryManager(new EfCategoryRepository());
         Context context = new Context();
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var values = blogManager.GetBlogListWithCategory();
             return View(values);
         }
 
+        [AllowAnonymous]
         public IActionResult ReadAllBlogs(int id)
         {
             var writerID = blogManager.GetWriterWithBlog(id);
