@@ -13,8 +13,12 @@ namespace MyBlogProject.Controllers
         public IActionResult Index()
         {
             Context context = new Context();
+            var userName = User.Identity.Name;
+            var userMail = context.Users.Where(x => x.UserName == userName).Select(y => y.Email).FirstOrDefault();
+            var writerId = context.Users.Where(x => x.Email == userMail).Select(y => y.Id).FirstOrDefault();
+
             ViewBag.value1 = context.Blogs.Count().ToString(); 
-            ViewBag.value2 = context.Blogs.Where(x => x.WriterID == 1).Count().ToString();
+            ViewBag.value2 = context.Blogs.Where(x => x.WriterID == writerId).Count().ToString();
             ViewBag.value3 = context.Categories.Count().ToString();
             return View();
         }

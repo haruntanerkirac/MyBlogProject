@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Concrete;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.Concrete.EntityFramework;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,15 @@ namespace MyBlogProject.Controllers
     public class MessageController : Controller
     {
         Message2Manager messageManager = new Message2Manager(new EfMessage2Repository());
+        Context context = new Context();
+
         public IActionResult InBox()
         {
-            int id = 2;
-            var values = messageManager.GetInboxListByWriter(2);
+            var userName = User.Identity.Name;
+            var userMail = context.Users.Where(x => x.UserName == userName).Select(y => y.Email).FirstOrDefault();
+            var writerID = context.Users.Where(x => x.Email == userMail).Select(y => y.Id).FirstOrDefault();
+
+            var values = messageManager.GetInboxListByWriter(writerID);
             return View(values);
         }
 

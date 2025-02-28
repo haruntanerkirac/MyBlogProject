@@ -6,15 +6,15 @@
 		<div class="card">
 			<div class="card-body">
 				<h4 class="card-title">YAZAR HAKKINDA</h4>
-				<h1>@ViewBag.username</h1>
+				@*<h1>@ViewBag.username</h1>*@
 
 				<div class="d-flex mt-5 align-items-top">
 					@foreach (var item in Model)
 					{
 						<img src="~/writer/assets/images/faces/face3.jpg" class="img-sm rounded-circle mr-3" alt="image">
 						<div class="mb-0 flex-grow">
-							<h5 class="mr-2 mb-2">@item.WriterName - @item.WriterMail</h5>
-							<p class="mb-0 font-weight-light">@item.WriterAbout</p>
+@* 							<h5 class="mr-2 mb-2">@item.NameSurname - @item.Email</h5>
+ *@							@* <p class="mb-0 font-weight-light">@item.WriterAbout</p> *@
 						</div>
 					}
 					<div class="ml-auto">

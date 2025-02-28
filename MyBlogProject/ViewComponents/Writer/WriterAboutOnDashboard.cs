@@ -13,11 +13,10 @@ namespace MyBlogProject.ViewComponents.Writer
         Context context = new Context();
 
         public IViewComponentResult Invoke()
-        { 
+        {
             var userName = User.Identity.Name;
-            ViewBag.username = userName;
             var userMail = context.Users.Where(x => x.UserName == userName).Select(y => y.Email).FirstOrDefault();
-            var writerID = context.Writers.Where(x => x.WriterMail == userName).Select(y => y.WriterID).FirstOrDefault();
+            var writerID = context.Users.Where(x => x.Email == userMail).Select(y => y.Id).FirstOrDefault();
             var values = writerManager.GetWriterById(writerID);
             return View(values); 
         }

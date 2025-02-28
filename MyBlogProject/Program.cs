@@ -1,4 +1,5 @@
 using DataAccessLayer.Concrete;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -28,6 +29,15 @@ builder.Services.AddAuthentication(
     {
         x.LoginPath = "/Login/Index";
     });
+builder.Services.ConfigureApplicationCookie(opts =>
+{
+    //Cookie settings
+    opts.Cookie.HttpOnly = true;
+    opts.ExpireTimeSpan = TimeSpan.FromMinutes(100);
+    opts.AccessDeniedPath = new PathString("/Login/AccessDenied/");
+    opts.LoginPath = "/Login/Index/";
+    opts.SlidingExpiration = true;
+});
 
 
 
